@@ -1,0 +1,15 @@
+# App
+APP_NAME = 'metal-friday'
+
+# Logs
+LOGS_FOLDER_PATH = 'logs'
+
+# Input & Output
+INPUT_FOLDER_PATH = 'input'
+OUTPUT_FOLDER_PATH = 'output'
+
+# Twitter credentials & authentication
+CONSUMER_KEY = 'whatever'
+CONSUMER_SECRET = 'whatevs'
+ACCESS_TOKEN = 'more-whatever'
+ACCESS_TOKEN_SECRET = 'more-whatevs'
