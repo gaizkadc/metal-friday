@@ -21,6 +21,7 @@ Additionally, a `settings.py` can be created to avoid having to pass all this en
 
 ## Considerations
 * 8 albums max, as Twitter won't allow videos longer than 30s
+* folder format for every Metal Friday: `YYYYMMdd`  
 * Check the `example_input_folder` to see how the list of albums and covers must be passed:
     * List format: `@band_twitter_user | band name | album name` for each entry
     * Cover must be `jpeg`, `png` or `webp`
