@@ -8,10 +8,10 @@ This bot:
 
 ## Environment variables
 Some env vars can be provided:
-`APP_NAME`: something like `metal-friday`.
-`LOGS_FOLDER_PATH`: could be just `logs`.
-`INPUT_FOLDER_PATH`: could be just `input`.
-`OUTPUT_FOLDER_PATH`: could be just `output`.
+* `APP_NAME`: something like `metal-friday`.
+* `LOGS_FOLDER_PATH`: could be just `logs`.
+* `INPUT_FOLDER_PATH`: could be just `input`.
+* `OUTPUT_FOLDER_PATH`: could be just `output`.
 * `CONSUMER_KEY`: your Twitter consumer key.
 * `CONSUMER_SECRET`: your Twitter consumer secret.
 * `ACCESS_TOKEN`: your Twitter access token.
