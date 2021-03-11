@@ -71,7 +71,7 @@ def create_mf_video(logger, output_folder_path, today):
     mf_clips = []
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    fps = 0.75  # 2 seconds every cover
+    fps = 1  # 1s every cover
 
     for i, img in enumerate(resized_covers):
         mf_video_name = mf_video_prefix + '0' + str(i) + '.avi'
@@ -102,6 +102,8 @@ def create_mf_video(logger, output_folder_path, today):
 
     logger.info('final mf video created at {}'.format(mf_final_video_path))
 
+    return mf_final_video_path
+
 
 def create_audio(logger, img_number, today, output_folder_path):
     logger.info('creating audio')
@@ -112,7 +114,7 @@ def create_audio(logger, img_number, today, output_folder_path):
     if not os.path.exists(audio_folder_path):
         os.makedirs(audio_folder_path)
 
-    audio_length = 4000 * img_number + 800     # 4s each img in ms plus some ms extra for good measure
+    audio_length = 3000 * img_number + 800     # 3s each img in ms plus some ms extra for good measure
     trimmed_audio = sound[:audio_length]
     faded_audio = trimmed_audio.fade_in(2000).fade_out(2000)
 

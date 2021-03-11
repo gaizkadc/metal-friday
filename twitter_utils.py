@@ -1,5 +1,6 @@
 import os
 import datetime
+import time
 
 import twitter
 
@@ -24,7 +25,7 @@ def get_twitter_credentials(logger):
     return consumer_key, consumer_secret, access_token, access_token_secret
 
 
-def get_twitter_api(consumer_key, consumer_secret, access_token, access_token_secret, logger):
+def get_twitter_api(logger, consumer_key, consumer_secret, access_token, access_token_secret):
     logger.info('getting twitter api')
     return twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret, sleep_on_rate_limit=True)
 
@@ -73,4 +74,13 @@ def create_tweet_text(logger):
         
     logger.info('tweet text created')
 
-    return tweet_text, mf_items
+    return tweet_text
+
+
+def tweet(logger, api, video_path, tweet_text):
+    logger.info('tweeting mf video')
+    mf_video_id = api.UploadMediaChunked(video_path)
+    time.sleep(20)
+    api.PostUpdate(status=tweet_text, media=mf_video_id)
+
+    logger.info('mf video tweeted')
