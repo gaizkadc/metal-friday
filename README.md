@@ -3,7 +3,7 @@ Metal Friday! Fuck yes!
 
 This bot:
 * retrieves a list of albums
-* creates a video with the covers of the albums and add some cool music to it
+* creates a video with the covers of the albums and adds some cool music to it
 * tweets it to your account
 
 ## Environment variables
