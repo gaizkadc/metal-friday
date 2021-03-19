@@ -42,8 +42,15 @@ def create_mf_video(logger, output_folder_path, today):
 
     covers_folder_path = input_folder_path + '/' + today + '/covers'
 
-    images = [img for img in os.listdir(covers_folder_path) if (img.lower().endswith('.jpg') or img.lower().endswith('.png') or img.lower().endswith('.webp'))]
-    images = sorted(images)
+    valid_extensions = ['jpg', 'jpeg', 'png', 'webp']
+    img_filename_list = []
+
+    for img_filename in os.listdir(covers_folder_path):
+        extension = img_filename.split('.')[1].lower()
+        if extension in valid_extensions:
+            img_filename_list.append(img_filename)
+
+    images = sorted(img_filename_list)
 
     size = (500, 500)
 
