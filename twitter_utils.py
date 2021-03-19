@@ -64,14 +64,21 @@ def create_tweet_text(logger):
         }
         mf_items.append(mf_item)
 
-    i = 0
-    while len(tweet_text) < 280 and i < len(mf_items):
-        if mf_items[i]['twitter_user'] != '':
-            tweet_text += mf_items[i]['twitter_user'] + ' | ' + mf_items[i]['album'] + '\n'
+    for mf_item in mf_items:
+        if mf_item['twitter_user'] != '':
+            almost_tweet_text = tweet_text + mf_item['twitter_user'] + ' | ' + mf_item['album'] + '\n'
         else:
-            tweet_text += '#' + mf_items[i]['artist'] + ' | ' + mf_items[i]['album'] + '\n'
-        i += 1
-        
+            almost_tweet_text = tweet_text + '#' + mf_item['artist'] + ' | ' + mf_item['album'] + '\n'
+
+        if len(almost_tweet_text) > 280 and len(tweet_text) < 271:
+            tweet_text += 'And more.'
+            break
+        if len(almost_tweet_text) > 280 and len(tweet_text) >= 271:
+            tweet_text = almost_tweet_text
+            break
+        else:
+            tweet_text = almost_tweet_text
+
     logger.info('tweet text created')
 
     return tweet_text
