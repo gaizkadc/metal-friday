@@ -71,7 +71,7 @@ def create_tweet_text(logger):
             almost_tweet_text = tweet_text + '#' + mf_item['artist'] + ' | ' + mf_item['album'] + '\n'
 
         if len(almost_tweet_text) > 280 and len(tweet_text) < 271:
-            tweet_text += 'And more.'
+            tweet_text += 'Y más.'
             break
         if len(almost_tweet_text) > 280 and len(tweet_text) >= 271:
             tweet_text = almost_tweet_text
