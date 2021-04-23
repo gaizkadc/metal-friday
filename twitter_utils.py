@@ -59,7 +59,7 @@ def create_tweet_text(logger):
             mf_twitter_user = '@' + twitter_user.strip()
         else:
             mf_twitter_user = ''
-        mf_artist = artist.replace(' ', '').replace('&', 'and')
+        mf_artist = artist.replace(' ', '').replace('&', 'and').replace("'", "")
         mf_album = album.replace('\n', '').strip()
         mf_item = {
             'twitter_user': mf_twitter_user,
