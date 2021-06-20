@@ -4,20 +4,30 @@ Metal Friday! Fuck yes!
 This bot:
 * retrieves a list of albums
 * creates a video with the covers of the albums and adds some cool music to it
-* tweets it to your account
+* tweets it
+* instagrams it
 
 ## Environment variables
-Some env vars can be provided:
-* `APP_NAME`: something like `metal-friday`.
-* `LOGS_FOLDER_PATH`: could be just `logs`.
-* `INPUT_FOLDER_PATH`: could be just `input`.
-* `OUTPUT_FOLDER_PATH`: could be just `output`.
-* `CONSUMER_KEY`: your Twitter consumer key.
-* `CONSUMER_SECRET`: your Twitter consumer secret.
-* `ACCESS_TOKEN`: your Twitter access token.
-* `ACCESS_TOKEN_SECRET`: your Twitter access token secret.
+Some env vars can be provided in an `.env` file:
+```
+PP_NAME=metal-friday
+LOGS_FOLDER_PATH=logs
 
-Additionally, a `settings.py` can be created to avoid having to pass all this env vars. To check its format, just rename `settings.py.sample` to `settings.py` and fill in your actual preferences and credentials.
+INPUT_FOLDER_PATH=input
+OUTPUT_FOLDER_PATH=output
+FONTS_PATH=fonts
+
+TWITTER_POST=1
+INSTAGRAM_POST=1
+
+TWITTER_CONSUMER_KEY=<consumer key>
+TWITTER_CONSUMER_SECRET=<consumer secret>
+TWITTER_ACCESS_TOKEN=<access token>
+TWITTER_ACCESS_TOKEN_SECRET=<access token secret>TWITTER_ACCESS_TOKEN_SECRET=gE3TD0Kmc39G5FEvEQKrhn9Yg8KTCKOmlw2wlq4cKR6mH
+
+IG_USERNAME=<username>
+IG_PASSWORD=<password>
+```
 
 ## Considerations
 * 8 albums max, as Twitter won't allow videos longer than 30s
