@@ -10,7 +10,7 @@ This bot:
 ## Environment variables
 Some env vars can be provided in an `.env` file:
 ```
-PP_NAME=metal-friday
+APP_NAME=metal-friday
 LOGS_FOLDER_PATH=logs
 
 INPUT_FOLDER_PATH=input
