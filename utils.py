@@ -3,16 +3,10 @@ import sys
 import logging
 from logging.handlers import RotatingFileHandler
 
-import settings
-
 
 def get_logger():
-    try:
-        logs_folder_path = settings.LOGS_FOLDER_PATH
-        app_name = settings.APP_NAME
-    except ImportError:
-        logs_folder_path = os.getenv('LOGS_FOLDER_PATH')
-        app_name = os.getenv('APP_NAME')
+    logs_folder_path = os.getenv('LOGS_FOLDER_PATH')
+    app_name = os.getenv('APP_NAME')
 
     if not os.path.isdir(logs_folder_path):
         os.mkdir(logs_folder_path)
@@ -43,12 +37,7 @@ def get_logger():
 def create_mf_output_folder(logger, today):
     logger.info('creating metal friday output folder')
 
-    try:
-        output_folder_path = settings.OUTPUT_FOLDER_PATH
-    except ImportError as error:
-        logger.info(error)
-        logger.info('settings module not found, retrieving env variables')
-        output_folder_path = os.getenv('OUTPUT_FOLDER_PATH')
+    output_folder_path = os.getenv('OUTPUT_FOLDER_PATH')
 
     mf_folder_path = output_folder_path + '/' + today
 

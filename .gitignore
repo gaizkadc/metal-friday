@@ -131,9 +131,6 @@ dmypy.json
 # Apple
 .DS_Store
 
-# Settings
-settings.py
-
 # PyCharm
 .idea/*
 
@@ -141,3 +138,6 @@ settings.py
 logs/*
 output/*
 input/*
+
+# Instabot
+config/

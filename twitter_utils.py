@@ -5,23 +5,14 @@ import time
 
 import twitter
 
-import settings
-
 
 def get_twitter_credentials(logger):
-    try:
-        consumer_key = settings.CONSUMER_KEY
-        consumer_secret = settings.CONSUMER_SECRET
-        access_token = settings.ACCESS_TOKEN
-        access_token_secret = settings.ACCESS_TOKEN_SECRET
+    logger.info('getting twitter credentials')
 
-    except ImportError as error:
-        logger.info(error)
-        logger.info('settings module not found, retrieving env variables')
-        consumer_key = os.getenv('CONSUMER_KEY')
-        consumer_secret = os.getenv('CONSUMER_SECRET')
-        access_token = os.getenv('ACCESS_TOKEN')
-        access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
+    consumer_key = os.getenv('CONSUMER_KEY')
+    consumer_secret = os.getenv('CONSUMER_SECRET')
+    access_token = os.getenv('ACCESS_TOKEN')
+    access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
     return consumer_key, consumer_secret, access_token, access_token_secret
 
@@ -41,12 +32,7 @@ def create_tweet_text(logger):
     now = datetime.datetime.now() # + datetime.timedelta(days=1)
     today = now.strftime("%Y%m%d")
 
-    try:
-        input_folder_path = settings.INPUT_FOLDER_PATH
-    except ImportError as error:
-        logger.info(error)
-        logger.info('settings module not found, retrieving env variables')
-        input_folder_path = os.getenv('INPUT_FOLDER_PATH')
+    input_folder_path = os.getenv('INPUT_FOLDER_PATH')
 
     with open(input_folder_path + '/' + today + '/' + today + '.list') as album_list_file:
         mf_lines = album_list_file.readlines()

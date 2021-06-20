@@ -4,8 +4,6 @@ from pydub import AudioSegment
 import os
 import cv2
 
-import settings
-
 
 def create_title_img(logger, today, output_path):
     logger.info('creating title img')
@@ -33,12 +31,7 @@ def create_mf_video(logger, output_folder_path, today):
     # gc as in generated content
     gc_path = output_folder_path + '/' + today
 
-    try:
-        input_folder_path = settings.INPUT_FOLDER_PATH
-    except ImportError as error:
-        logger.info(error)
-        logger.info('settings module not found, retrieving env variables')
-        input_folder_path = os.getenv('INPUT_FOLDER_PATH')
+    input_folder_path = os.getenv('INPUT_FOLDER_PATH')
 
     covers_folder_path = input_folder_path + '/' + today + '/covers'
 
