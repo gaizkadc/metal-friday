@@ -9,17 +9,27 @@ import twitter
 def get_twitter_credentials(logger):
     logger.info('getting twitter credentials')
 
-    consumer_key = os.getenv('CONSUMER_KEY')
-    consumer_secret = os.getenv('CONSUMER_SECRET')
-    access_token = os.getenv('ACCESS_TOKEN')
-    access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
+    consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
+    consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
+    access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+    access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 
-    return consumer_key, consumer_secret, access_token, access_token_secret
+    credentials = {
+        'consumer_key': consumer_key,
+        'consumer_secret': consumer_secret,
+        'access_token': access_token,
+        'access_token_secret': access_token_secret
+    }
+
+    logger.info('twitter credentials retrieved')
+
+    return credentials
 
 
-def get_twitter_api(logger, consumer_key, consumer_secret, access_token, access_token_secret):
+def get_twitter_api(logger, credentials):
     logger.info('getting twitter api')
-    return twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token, access_token_secret=access_token_secret, sleep_on_rate_limit=True)
+
+    return twitter.Api(consumer_key=credentials['consumer_key'], consumer_secret=credentials['consumer_secret'], access_token_key=credentials['access_token'], access_token_secret=credentials['access_token_secret'], sleep_on_rate_limit=True)
 
 
 def create_tweet_text(logger):

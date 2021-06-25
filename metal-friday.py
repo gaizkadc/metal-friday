@@ -24,8 +24,8 @@ mf_video_path = media_utils.create_mf_video(logger, output_folder_path, today)
 
 # Tweet
 if os.getenv('TWITTER_POST') == '1':
-    consumer_key, consumer_secret, access_token, access_token_secret = twitter_utils.get_twitter_credentials(logger)
-    api = twitter_utils.get_twitter_api(logger, consumer_key, consumer_secret, access_token, access_token_secret)
+    credentials = twitter_utils.get_twitter_credentials(logger)
+    api = twitter_utils.get_twitter_api(logger, credentials)
     twitter_utils.tweet(logger, api, mf_video_path, caption)
 
 # Instagram
