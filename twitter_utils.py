@@ -78,16 +78,16 @@ def check_tweet_text_length(logger, mf_items, tweet_text):
         else:
             almost_tweet_text = tweet_text + '#' + mf_item['artist'] + ' | ' + mf_item['album'] + '\n'
 
-        if len(almost_tweet_text) > 280 and len(tweet_text) < (280 - len('Y más.')):
+        if len(almost_tweet_text) >= 280 and len(tweet_text) <= (280 - len('Y más.')):
             tweet_text += 'Y más.'
             break
-        if len(almost_tweet_text) > 280 and len(tweet_text) >= (280 - len('Y más.')):
-            tweet_text = almost_tweet_text
+        if len(almost_tweet_text) >= 280 and len(tweet_text) >= (280 - len('Y más.')):
             break
         else:
             tweet_text = almost_tweet_text
 
     logger.info('tweet text:\n' + tweet_text)
+    logger.info('tweet length: ' + str(len(tweet_text)))
     return tweet_text
 
 
