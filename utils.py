@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import datetime
 from logging.handlers import RotatingFileHandler
 
 
@@ -45,3 +46,30 @@ def create_mf_output_folder(logger, today):
         os.makedirs(mf_folder_path)
 
     return output_folder_path
+
+
+def create_tumblr_tags(logger):
+    logger.info('creating tumbler tags')
+
+    tags = []
+
+    input_folder_path = os.getenv('INPUT_FOLDER_PATH')
+
+    now = datetime.datetime.now()  # + datetime.timedelta(days=1)
+    today = now.strftime("%Y%m%d")
+
+    with open(input_folder_path + '/' + today + '/' + today + '.list') as album_list_file:
+        mf_lines = album_list_file.readlines()
+
+    for mf_line in mf_lines:
+        twitter_user, artist, album = mf_line.split('|')
+        if twitter_user.strip() != '':
+            mf_twitter_user = '@' + twitter_user.strip()
+        else:
+            mf_twitter_user = ''
+        mf_artist = artist.replace(' ', '').replace('&', 'and').replace("'", "")
+        mf_album = album.replace('\n', '').strip()
+
+        tags.append(mf_artist)
+
+    return tags
