@@ -34,7 +34,7 @@ if os.getenv('TWITTER_POST') == '1':
 if os.getenv('INSTAGRAM_POST') == '1':
     instagram_utils.instagram_collage(logger, mf_video_path, caption)
 
-# post collage to tumblr
+# post video to tumblr
 if os.getenv('TUMBLR_POST') == '1':
     tumblr_utils.tumblr_video(logger, mf_video_path, caption, tumblr_tags)
 
