@@ -44,8 +44,9 @@ def tumblr_video(logger, video_path, caption, tags):
     client = tumblr_login(logger, credentials)
 
     tags.append('metal friday')
+    tags.append('viernes de metal')
     tags.append('metal')
 
-    client.create_photo("fohoma", tags=tags, state="published", caption=caption, data=video_path)
+    client.create_video("fohoma", tags=tags, state="published", caption=caption, data=video_path)
 
     logger.info('video posted to tumblr')
