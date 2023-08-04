@@ -3,35 +3,35 @@ import datetime
 import random
 import time
 
-import twitter
+# import twitter
 import tweepy
 
 
-def get_twitter_credentials_and_client(logger):
-    logger.info('getting twitter credentials')
-
-    consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
-    consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
-    access_token = os.getenv('TWITTER_ACCESS_TOKEN')
-    access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
-
-    credentials = {
-        'consumer_key': consumer_key,
-        'consumer_secret': consumer_secret,
-        'access_token': access_token,
-        'access_token_secret': access_token_secret
-    }
-
-    logger.info('twitter credentials retrieved')
-
-    client = tweepy.Client(
-        consumer_key=consumer_key, consumer_secret=consumer_secret,
-        access_token=access_token, access_token_secret=access_token_secret
-    )
-
-    logger.info('twitter client retrieved')
-
-    return credentials, client
+# def get_twitter_credentials_and_client(logger):
+#     logger.info('getting twitter credentials')
+#
+#     consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
+#     consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
+#     access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+#     access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+#
+#     credentials = {
+#         'consumer_key': consumer_key,
+#         'consumer_secret': consumer_secret,
+#         'access_token': access_token,
+#         'access_token_secret': access_token_secret
+#     }
+#
+#     logger.info('twitter credentials retrieved')
+#
+#     client = tweepy.Client(
+#         consumer_key=consumer_key, consumer_secret=consumer_secret,
+#         access_token=access_token, access_token_secret=access_token_secret
+#     )
+#
+#     logger.info('twitter client retrieved')
+#
+#     return credentials, client
 
 
 def get_twitter_client(logger):
@@ -51,20 +51,12 @@ def get_twitter_client(logger):
     return client
 
 
-def get_twitter_api(logger, credentials):
-    logger.info('getting twitter api')
-
-    return twitter.Api(consumer_key=credentials['consumer_key'], consumer_secret=credentials['consumer_secret'],
-                       access_token_key=credentials['access_token'],
-                       access_token_secret=credentials['access_token_secret'], sleep_on_rate_limit=True)
-
-
 def create_tweet_text(logger):
     logger.info('creating tweet text')
 
     adornment_noun_list = ['Hostia ', 'Mierda ']
     adornment_adjective_list = ['jodida', 'puta']
-    tweet_text = random.choice(adornment_noun_list) + random.choice(adornment_adjective_list) + ', #ViernesdeMetal:\n'
+    caption = random.choice(adornment_noun_list) + random.choice(adornment_adjective_list) + ', #ViernesdeMetal:\n'
 
     now = datetime.datetime.now()  # + datetime.timedelta(days=1)
     today = now.strftime("%Y%m%d")
@@ -82,7 +74,7 @@ def create_tweet_text(logger):
             mf_twitter_user = '@' + twitter_user.strip()
         else:
             mf_twitter_user = ''
-        mf_artist = artist.replace(' ', '').replace('&', 'and').replace("'", "")
+        mf_artist = artist.replace(" ", "").replace('&', 'and').replace("'", "").replace(",", "")
         mf_album = album.replace('\n', '').strip()
         mf_item = {
             'twitter_user': mf_twitter_user,
@@ -91,42 +83,40 @@ def create_tweet_text(logger):
         }
         mf_items.append(mf_item)
 
-    tweet_text = check_tweet_text_length(logger, mf_items, tweet_text)
+    caption = check_tweet_text_length(logger, mf_items, caption)
     logger.info('tweet text created')
 
-    return tweet_text
+    return caption
 
 
-def check_tweet_text_length(logger, mf_items, tweet_text):
+def check_tweet_text_length(logger, mf_items, caption):
     logger.info('checking tweet length')
     for mf_item in mf_items:
         if mf_item['twitter_user'] != '':
-            almost_tweet_text = tweet_text + mf_item['twitter_user'] + ' | ' + mf_item['album'] + '\n'
+            almost_tweet_text = caption + mf_item['twitter_user'] + ' | ' + mf_item['album'] + '\n'
         else:
-            almost_tweet_text = tweet_text + '#' + mf_item['artist'] + ' | ' + mf_item['album'] + '\n'
+            almost_tweet_text = caption + '#' + mf_item['artist'] + ' | ' + mf_item['album'] + '\n'
 
-        if len(almost_tweet_text) >= 280 and len(tweet_text) <= (280 - len('Y más.')):
-            tweet_text += 'Y más.'
+        if len(almost_tweet_text) >= 280 and len(caption) <= (280 - len('Y más.')):
+            caption += 'Y más.'
             break
-        if len(almost_tweet_text) >= 280 and len(tweet_text) >= (280 - len('Y más.')):
+        if len(almost_tweet_text) >= 280 and len(caption) >= (280 - len('Y más.')):
             break
         else:
-            tweet_text = almost_tweet_text
+            caption = almost_tweet_text
 
-    logger.info('tweet text:\n' + tweet_text)
-    logger.info('tweet length: ' + str(len(tweet_text)))
-    return tweet_text
+    logger.info('tweet text:\n' + caption)
+    logger.info('tweet length: ' + str(len(caption)))
+    return caption
 
 
-def tweet(logger, api, client, video_path, tweet_text):
+def tweet(logger, api, client, video_path, caption):
     logger.info('tweeting mf video')
     mf_video_id = api.UploadMediaChunked(video_path)
     time.sleep(20)
 
-
-
     response = client.create_tweet(
-        text=tweet_text,
+        text=caption,
         media_media_ids=mf_video_id
     )
 
